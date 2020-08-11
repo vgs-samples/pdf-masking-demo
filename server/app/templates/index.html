@@ -1,0 +1,77 @@
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/main.css') }}">
+    <script>
+        var pdfData = '{{ pdf_data }}';
+        var PDFJS = window['pdfjs-dist/build/pdf'];
+        if (pdfData) {
+            pdfData = atob(pdfData);
+            pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+            var loadingTask = PDFJS.getDocument({data: pdfData});
+            loadingTask.promise.then(function (pdf) {
+                console.log('PDF loaded');
+
+                // Fetch the first page
+                var pageNumber = 1;
+                pdf.getPage(pageNumber).then(function (page) {
+                    console.log('Page loaded');
+
+                    var scale = 1.5;
+                    var viewport = page.getViewport({scale: scale});
+
+                    // Prepare canvas using PDF page dimensions
+                    var canvas = document.getElementById('pdf-canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render PDF page into canvas context
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    var renderTask = page.render(renderContext);
+                    renderTask.promise.then(function () {
+                        console.log('Page rendered');
+                    });
+                });
+            }, function (reason) {
+                // PDF loading error
+                console.error(reason);
+            });
+        }
+    </script>
+</head>
+
+<div class="container">
+    <div class="col-md-6 mx-auto text-center">
+        <div class="header-title">
+            <h1 class="wv-heading--title">
+                VGS Token Generator
+            </h1>
+            {% if encoded_file %}
+            <h2 class="wv-heading--subtitle">
+                Token: {{encoded_file}}
+            </h2>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="myform form ">
+                <form action="https://tnttu5yqerg.sandbox.verygoodproxy.com/redact" method="post" enctype="multipart/form-data" name="login">
+                    <div class="form-group">
+                        <input type="file" name="file"  class="form-control my-input" id="file">
+                    </div>
+                    <div class="text-center ">
+                        <button type="submit" class=" btn btn-block send-button tx-tfm">Tokenize</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <canvas id="pdf-canvas"></canvas>
+</div>

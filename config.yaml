@@ -1,0 +1,67 @@
+data:
+  - attributes:
+      created_at: '2020-08-05T22:12:34'
+      destination_override_endpoint: 'https://9ce54979afa0.ngrok.io'
+      entries:
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - condition: null
+                expression:
+                  field: PathInfo
+                  operator: matches
+                  type: string
+                  values:
+                    - /redact
+          id: 8662389e-50d4-48a4-809c-4b1f86f5db0f
+          id_selector: null
+          operation: REDACT
+          operations: null
+          phase: REQUEST
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: PDF_METADATA_TOKEN
+          transformer_config:
+            - '200,90,95,115:1'
+          transformer_config_map: null
+        - classifiers: {}
+          config:
+            condition: AND
+            rules:
+              - condition: null
+                expression:
+                  field: PathInfo
+                  operator: matches
+                  type: string
+                  values:
+                    - /reveal
+          id: 6c194af9-2fc7-4796-b22b-6d85b4f8b2ed
+          id_selector: null
+          operation: ENRICH
+          operations: null
+          phase: REQUEST
+          public_token_generator: UUID
+          targets:
+            - body
+          token_manager: PERSISTENT
+          transformer: PDF_METADATA_TOKEN
+          transformer_config:
+            - '200,90,95,115:1'
+          transformer_config_map: null
+          type: null
+      host_endpoint: (.*)\.verygoodproxy\.com
+      id: b205236c-86a1-460d-aae7-ba10ee6d7a64
+      ordinal: null
+      port: 80
+      protocol: http
+      source_endpoint: '*'
+      tags:
+        name: echo.apps.verygood.systems-burly-wood-cross
+        source: RouteContainer
+      updated_at: '2020-09-24T22:47:42'
+    id: b205236c-86a1-460d-aae7-ba10ee6d7a64
+    type: rule_chain
+version: 1
