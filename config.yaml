@@ -42,7 +42,7 @@ data:
           id_selector: null
           operation: ENRICH
           operations: null
-          phase: REQUEST
+          phase: RESPONSE
           public_token_generator: UUID
           targets:
             - body
@@ -51,7 +51,6 @@ data:
           transformer_config:
             - '200,90,95,115:1'
           transformer_config_map: null
-          type: null
       host_endpoint: (.*)\.verygoodproxy\.com
       id: b205236c-86a1-460d-aae7-ba10ee6d7a64
       ordinal: null
