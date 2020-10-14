@@ -1,4 +1,4 @@
-# pdf-masking-demo
+# PDF Masking Demo
 
 <p align="center"><a href="https://www.verygoodsecurity.com/"><img src="https://avatars0.githubusercontent.com/u/17788525" width="128" alt="VGS Logo"></a></p>
 <p align="center"><b>Using VGS to Mask Data from PDFs</b></p>
@@ -14,10 +14,19 @@ The application allows users to submit PDF files to the server, verify that the 
 * Next, run ```ngrok http 5000```
 
 ## VGS Dashboard Configuration
-Set your route's upsteam host to your nGrok URL. Add filters for the reveal and redact. Note that the coordinates specified in the routes consist of four digitis - x coordinate of the bottom left corner, y coordinate of the bottom left corner, width, and height respectively. 
+Set your route's upsteam host to your nGrok URL:
+![Upstream Host](docs/images/upstream_host.png)
 
-* Add a redact filter to mask the desired part of PDFs sent to the redact route
-* Add a reveal filter to reveal that part in PDFs sent to the reveal route
+Add two filters:
+
+One to mask the desired part of PDFs sent to the redact route
+![Redact Filter](docs/images/redact.png)
+
+One to reveal that part in PDFs sent to the reveal route
+![Reveal Filter](docs/images/reveal.png)
+
+Note that the coordinates specified in the routes consist of four digitis - x coordinate of the bottom left corner, y coordinate of the bottom left corner, width, and height respectively. The coordinates in the examples will mask the photo from the example driver's license image provided in this repository.
+
 
 For a quick start, you can use the config.yaml in this project to import a sample route. Using [vgs-cli](https://www.verygoodsecurity.com/docs/cli), run
 ```vgs --tenant=VAULT_ID route --sync-all < config.yaml```
@@ -26,9 +35,12 @@ For a quick start, you can use the config.yaml in this project to import a sampl
 
 Note: This app is intended to demonstrate VGS's capabilities and is not intended to securely handle live data. Do not input any PDFs containing real sensitive data.
 
-* Open http://0.0.0.0:3000/ in your browser
-* Upload a PDF of your choice
-* Click "Redact" and observe the result with the redaction
-* Click "Reveal" and observe how the original PDF is displayed again
+Open http://0.0.0.0:3000/ in your browser, and upload a PDF of your choice
+![Upload PDF](docs/images/original.png)
 
-. 
+Click "Redact" and observe the result with the redaction
+![Redact](docs/images/redacted.png)
+
+Click "Reveal" and observe how the original PDF is displayed again
+![Reveal](docs/images/original.png)
+
